@@ -1,6 +1,6 @@
-# Project 3 - *Twetter*
+# Twitter - Part I
 
-**Twetter** is a basic twitter app to read your tweets.
+This is a basic twitter app to read your tweets.
 
 Time spent: **3** hours spent in total
 
@@ -24,4 +24,3 @@ The following **bonus** features are implemented:
 Here's a walkthrough of implemented user stories:
 
 <img src='https://github.com/kc3585/Twitter_App/blob/master/twitter.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-

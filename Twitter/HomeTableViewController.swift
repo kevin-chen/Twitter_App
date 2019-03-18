@@ -22,23 +22,33 @@ class HomeTableViewController: UITableViewController {
         tableView.refreshControl = myRefreshControl
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.loadTweet()
+    }
+    
     @objc func loadTweet() {
         
         numberOfTweets = 20
         
         let myUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let myParams = ["count":numberOfTweets]
+        let myParams = ["count":numberOfTweets!]
         
-        TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
+        do {
+            TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
             self.tweetArray.removeAll()
             for tweet in tweets {
                 self.tweetArray.append(tweet)
             }
             self.tableView.reloadData()
             self.myRefreshControl.endRefreshing()
-        }, failure: {(Error) in
-            print("Could not retrieve tweets!")
-        })
+            }, failure: {(Error) in
+                print("Could not retrieve tweets!")
+            })
+        }
+        catch {
+            
+        }
     }
     
     func loadMoreTweets() {
@@ -46,7 +56,7 @@ class HomeTableViewController: UITableViewController {
         
         numberOfTweets = numberOfTweets + 20
         
-        let myParams = ["count":numberOfTweets]
+        let myParams = ["count":numberOfTweets!]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: myUrl, parameters: myParams, success: { (tweets: [NSDictionary]) in
             self.tweetArray.removeAll()
@@ -88,6 +98,11 @@ class HomeTableViewController: UITableViewController {
         
         return cell
     }
+    
+    @IBAction func tweet(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     // MARK: - Table view data source
 
